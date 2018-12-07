@@ -50,6 +50,14 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
+void __io_putchar(uint8_t ch) {
+  HAL_UART_Transmit(&huart1, &ch, 1, 1);
+}
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE END PV */
@@ -59,7 +67,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-
+void L_chika(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
@@ -104,7 +112,8 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim4);
+  setbuf(stdout, NULL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,19 +124,7 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-	  HAL_GPIO_WritePin(led1_GPIO_Port,led1_Pin,1);
-	  HAL_GPIO_WritePin(led2_GPIO_Port,led2_Pin,1);
-	  HAL_GPIO_WritePin(led3_GPIO_Port,led3_Pin,1);
-	  HAL_GPIO_WritePin(led4_GPIO_Port,led4_Pin,1);
-
-	  HAL_Delay(1000);
-
-	  HAL_GPIO_WritePin(led1_GPIO_Port,led1_Pin,0);
-	  HAL_GPIO_WritePin(led2_GPIO_Port,led2_Pin,0);
-	  HAL_GPIO_WritePin(led3_GPIO_Port,led3_Pin,0);
-	  HAL_GPIO_WritePin(led4_GPIO_Port,led4_Pin,0);
-
-	  HAL_Delay(1000);
+	  printf("ch10:%d\tch11:%d\tch12:%d\tch13:%d\r",adc1_ch10,adc1_ch11,adc3_ch12,adc3_ch13);
   }
   /* USER CODE END 3 */
 
@@ -191,7 +188,21 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+void L_chika(void){
+	HAL_GPIO_WritePin(led1_GPIO_Port,led1_Pin,1);
+	HAL_GPIO_WritePin(led2_GPIO_Port,led2_Pin,1);
+	HAL_GPIO_WritePin(led3_GPIO_Port,led3_Pin,1);
+	HAL_GPIO_WritePin(led4_GPIO_Port,led4_Pin,1);
 
+	HAL_Delay(1000);
+
+	HAL_GPIO_WritePin(led1_GPIO_Port,led1_Pin,0);
+	HAL_GPIO_WritePin(led2_GPIO_Port,led2_Pin,0);
+	HAL_GPIO_WritePin(led3_GPIO_Port,led3_Pin,0);
+	HAL_GPIO_WritePin(led4_GPIO_Port,led4_Pin,0);
+
+	HAL_Delay(1000);
+}
 /* USER CODE END 4 */
 
 /**

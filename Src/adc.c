@@ -44,6 +44,12 @@
 
 /* USER CODE BEGIN 0 */
 
+uint16_t adc1_ch10;
+uint16_t adc1_ch11;
+
+uint16_t adc3_ch12;
+uint16_t adc3_ch13;
+
 /* USER CODE END 0 */
 
 ADC_HandleTypeDef hadc1;
@@ -73,7 +79,7 @@ void MX_ADC1_Init(void)
     */
   sConfig.Channel = ADC_CHANNEL_10;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -103,7 +109,7 @@ void MX_ADC2_Init(void)
     */
   sConfig.Channel = ADC_CHANNEL_4;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -133,7 +139,7 @@ void MX_ADC3_Init(void)
     */
   sConfig.Channel = ADC_CHANNEL_12;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
   if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
   {
     _Error_Handler(__FILE__, __LINE__);
@@ -200,9 +206,6 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef* adcHandle)
     GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
     HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    /* ADC3 interrupt Init */
-    HAL_NVIC_SetPriority(ADC3_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(ADC3_IRQn);
   /* USER CODE BEGIN ADC3_MspInit 1 */
 
   /* USER CODE END ADC3_MspInit 1 */
@@ -261,8 +264,6 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
     */
     HAL_GPIO_DeInit(GPIOC, GPIO_PIN_2|GPIO_PIN_3);
 
-    /* ADC3 interrupt Deinit */
-    HAL_NVIC_DisableIRQ(ADC3_IRQn);
   /* USER CODE BEGIN ADC3_MspDeInit 1 */
 
   /* USER CODE END ADC3_MspDeInit 1 */
@@ -271,6 +272,59 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* adcHandle)
 
 /* USER CODE BEGIN 1 */
 
+/****************************************************************************************
+ * outline  : update adc1 (ch10 and ch11)
+ * argument : void
+ * return   : void
+********************************************************************************************/
+void update_ADC1(void)
+{
+  ADC_ChannelConfTypeDef sConfig;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
+
+  sConfig.Channel = ADC_CHANNEL_10;
+  HAL_ADC_ConfigChannel( &hadc1, &sConfig );  // setting store
+  HAL_ADC_Start( &hadc1 );     // ad convert start
+  while( HAL_ADC_PollForConversion( &hadc1,50 ) != HAL_OK );
+  adc1_ch10 = HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
+
+  sConfig.Channel = ADC_CHANNEL_11;
+  HAL_ADC_ConfigChannel( &hadc1, &sConfig );  // setting store
+  HAL_ADC_Start( &hadc1 );     // ad convert start
+  while( HAL_ADC_PollForConversion( &hadc1,50 ) != HAL_OK );
+  adc1_ch11 = HAL_ADC_GetValue(&hadc1);
+  HAL_ADC_Stop(&hadc1);
+}
+
+
+
+/****************************************************************************************
+ * outline  : update adc3 (ch12 and ch13)
+ * argument : void
+ * return   : void
+********************************************************************************************/
+void update_ADC3(void)
+{
+  ADC_ChannelConfTypeDef sConfig;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
+
+  sConfig.Channel = ADC_CHANNEL_12;
+  HAL_ADC_ConfigChannel( &hadc3, &sConfig );  // setting store
+  HAL_ADC_Start( &hadc3 );     // ad convert start
+  while( HAL_ADC_PollForConversion( &hadc3,50 ) != HAL_OK );
+  adc3_ch12 = HAL_ADC_GetValue(&hadc3);
+  HAL_ADC_Stop(&hadc3);
+
+  sConfig.Channel = ADC_CHANNEL_13;
+  HAL_ADC_ConfigChannel( &hadc3, &sConfig );  // setting store
+  HAL_ADC_Start( &hadc3 );     // ad convert start
+  while( HAL_ADC_PollForConversion( &hadc3,50 ) != HAL_OK );
+  adc3_ch13 = HAL_ADC_GetValue(&hadc3);
+  HAL_ADC_Stop(&hadc3);
+}
 /* USER CODE END 1 */
 
 /**
