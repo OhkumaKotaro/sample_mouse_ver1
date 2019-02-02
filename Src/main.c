@@ -114,17 +114,32 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim4);
   setbuf(stdout, NULL);
+  //uint16_t adc=0;
+  //uint16_t batt_now=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_GPIO_WritePin(led1_GPIO_Port,led1_Pin,GPIO_PIN_SET);
+
   while (1)
   {
 
   /* USER CODE END WHILE */
+	  HAL_GPIO_WritePin(ir_led1_GPIO_Port,ir_led1_Pin,GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(ir_led2_GPIO_Port,ir_led2_Pin,GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(ir_led3_GPIO_Port,ir_led3_Pin,GPIO_PIN_SET);
+	  HAL_GPIO_WritePin(ir_led4_GPIO_Port,ir_led4_Pin,GPIO_PIN_SET);
 
   /* USER CODE BEGIN 3 */
-	  printf("ch10:%d\tch11:%d\tch12:%d\tch13:%d\r",adc1_ch10,adc1_ch11,adc3_ch12,adc3_ch13);
+	  //batt_now = (uint16_t)((float)batt*3.3f*51.0f/12.0f/4095.0f);
+	  //printf("%d",batt_now);
+	  //update_ADC1();
+	  //update_ADC2();
+	  //update_ADC3();
+
+	  printf("%d\r",adc1_ch10);
+
   }
   /* USER CODE END 3 */
 
