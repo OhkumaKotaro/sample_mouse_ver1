@@ -44,11 +44,13 @@
 
 /* USER CODE BEGIN 0 */
 
-uint16_t adc1_ch10;
-uint16_t adc1_ch11;
+uint16_t adc1_ch10=10;
+uint16_t adc1_ch11=10;
 
-uint16_t adc3_ch12;
-uint16_t adc3_ch13;
+uint16_t adc3_ch12=10;
+uint16_t adc3_ch13=10;
+
+uint16_t batt=0;
 
 /* USER CODE END 0 */
 
@@ -286,16 +288,19 @@ void update_ADC1(void)
   sConfig.Channel = ADC_CHANNEL_10;
   HAL_ADC_ConfigChannel( &hadc1, &sConfig );  // setting store
   HAL_ADC_Start( &hadc1 );     // ad convert start
-  while( HAL_ADC_PollForConversion( &hadc1,50 ) != HAL_OK );
+  while( HAL_ADC_PollForConversion( &hadc1,1000 ) != HAL_OK );
   adc1_ch10 = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
+  //HAL_ADC_Stop(&hadc1);
+
+  sConfig.Rank = 2;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
 
   sConfig.Channel = ADC_CHANNEL_11;
   HAL_ADC_ConfigChannel( &hadc1, &sConfig );  // setting store
   HAL_ADC_Start( &hadc1 );     // ad convert start
-  while( HAL_ADC_PollForConversion( &hadc1,50 ) != HAL_OK );
+  while( HAL_ADC_PollForConversion( &hadc1,1000 ) != HAL_OK );
   adc1_ch11 = HAL_ADC_GetValue(&hadc1);
-  HAL_ADC_Stop(&hadc1);
+  //HAL_ADC_Stop(&hadc1);
 }
 
 
@@ -314,16 +319,39 @@ void update_ADC3(void)
   sConfig.Channel = ADC_CHANNEL_12;
   HAL_ADC_ConfigChannel( &hadc3, &sConfig );  // setting store
   HAL_ADC_Start( &hadc3 );     // ad convert start
-  while( HAL_ADC_PollForConversion( &hadc3,50 ) != HAL_OK );
+  while( HAL_ADC_PollForConversion( &hadc3,1000 ) != HAL_OK );
   adc3_ch12 = HAL_ADC_GetValue(&hadc3);
-  HAL_ADC_Stop(&hadc3);
+  //HAL_ADC_Stop(&hadc3);
+
+  sConfig.Rank = 2;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
 
   sConfig.Channel = ADC_CHANNEL_13;
   HAL_ADC_ConfigChannel( &hadc3, &sConfig );  // setting store
   HAL_ADC_Start( &hadc3 );     // ad convert start
-  while( HAL_ADC_PollForConversion( &hadc3,50 ) != HAL_OK );
+  while( HAL_ADC_PollForConversion( &hadc3,1000 ) != HAL_OK );
   adc3_ch13 = HAL_ADC_GetValue(&hadc3);
-  HAL_ADC_Stop(&hadc3);
+  //HAL_ADC_Stop(&hadc3);
+}
+
+
+/****************************************************************************************
+ * outline  : update adc3 (ch12 and ch13)
+ * argument : void
+ * return   : void
+********************************************************************************************/
+void update_ADC2(void)
+{
+  ADC_ChannelConfTypeDef sConfig;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_55CYCLES_5;
+
+  sConfig.Channel = ADC_CHANNEL_4;
+  HAL_ADC_ConfigChannel( &hadc2, &sConfig );  // setting store
+  HAL_ADC_Start( &hadc2 );     // ad convert start
+  while( HAL_ADC_PollForConversion( &hadc2,100 ) != HAL_OK );
+  batt = HAL_ADC_GetValue(&hadc2);
+  HAL_ADC_Stop(&hadc2);
 }
 /* USER CODE END 1 */
 
