@@ -63,6 +63,8 @@ extern uint16_t adc1_ch11;
 
 extern uint16_t adc3_ch12;
 extern uint16_t adc3_ch13;
+
+extern uint16_t batt;
 /* USER CODE END Private defines */
 
 extern void _Error_Handler(char *, int);
@@ -74,6 +76,7 @@ void MX_ADC3_Init(void);
 /* USER CODE BEGIN Prototypes */
 void update_ADC1(void);
 void update_ADC3(void);
+void update_ADC2(void);
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus
