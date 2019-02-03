@@ -68,7 +68,7 @@ void SystemClock_Config(void);
 
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
-void L_chika(void);
+void L_chika(void);//test led on and off
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
