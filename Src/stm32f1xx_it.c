@@ -204,6 +204,7 @@ void TIM4_IRQHandler(void)
   /* USER CODE BEGIN TIM4_IRQn 1 */
   update_ADC1();
   update_ADC3();
+
   /* USER CODE END TIM4_IRQn 1 */
 }
 

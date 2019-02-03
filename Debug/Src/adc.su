@@ -1,7 +1,8 @@
-adc.c:60:6:MX_ADC1_Init	24	static
-adc.c:90:6:MX_ADC2_Init	24	static
-adc.c:120:6:MX_ADC3_Init	24	static
-adc.c:150:6:HAL_ADC_MspInit	40	static
-adc.c:215:6:HAL_ADC_MspDeInit	0	static
-adc.c:280:6:update_ADC1	32	static
-adc.c:308:6:update_ADC3	32	static
+adc.c:62:6:MX_ADC1_Init	24	static
+adc.c:92:6:MX_ADC2_Init	24	static
+adc.c:122:6:MX_ADC3_Init	24	static
+adc.c:152:6:HAL_ADC_MspInit	40	static
+adc.c:217:6:HAL_ADC_MspDeInit	0	static
+adc.c:282:6:update_ADC1	32	static
+adc.c:313:6:update_ADC3	32	static
+adc.c:343:6:update_ADC2	24	static
