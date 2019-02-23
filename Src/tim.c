@@ -370,30 +370,37 @@ void Motor_Enable(void) {
 		Error_Handler();
 	}
 
-	HAL_GPIO_WritePin(motor_en_GPIO_Port,motor_en_Pin,GPIO_PIN_SET);
-	HAL_GPIO_WritePin(r_cw_GPIO_Port,r_cw_Pin,GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(l_cw_GPIO_Port,l_cw_Pin,GPIO_PIN_SET);
+	HAL_GPIO_WritePin(motor_en_GPIO_Port, motor_en_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(r_cw_GPIO_Port, r_cw_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(l_cw_GPIO_Port, l_cw_Pin, GPIO_PIN_SET);
 }
 /*
  * ŠT—v
  *
  * */
-void Motor_Control(int left ,int right){
-	if(left>0){
-		HAL_GPIO_WritePin(l_cw_GPIO_Port,l_cw_Pin,GPIO_PIN_SET);
-	}else{
-		HAL_GPIO_WritePin(l_cw_GPIO_Port,l_cw_Pin,GPIO_PIN_RESET);
-		left=-1*left;
+void Motor_Control(int left, int right) {
+	if (left > 0) {
+		HAL_GPIO_WritePin(l_cw_GPIO_Port, l_cw_Pin, GPIO_PIN_SET);
+	} else {
+		HAL_GPIO_WritePin(l_cw_GPIO_Port, l_cw_Pin, GPIO_PIN_RESET);
+		left = -1 * left;
 	}
-	if(right>0){
-		HAL_GPIO_WritePin(r_cw_GPIO_Port,r_cw_Pin,GPIO_PIN_RESET);
-	}else{
-		HAL_GPIO_WritePin(r_cw_GPIO_Port,r_cw_Pin,GPIO_PIN_SET);
-		right=-1*right;
+	if (right > 0) {
+		HAL_GPIO_WritePin(r_cw_GPIO_Port, r_cw_Pin, GPIO_PIN_RESET);
+	} else {
+		HAL_GPIO_WritePin(r_cw_GPIO_Port, r_cw_Pin, GPIO_PIN_SET);
+		right = -1 * right;
 	}
 
 	htim2.Init.Prescaler = left;
+	if (HAL_TIM_PWM_Init(&htim2) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
 	htim3.Init.Prescaler = right;
+	if (HAL_TIM_PWM_Init(&htim3) != HAL_OK) {
+		_Error_Handler(__FILE__, __LINE__);
+	}
+
 }
 /* USER CODE END 1 */
 

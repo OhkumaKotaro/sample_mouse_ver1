@@ -71,7 +71,7 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
                                                 
 
 /* USER CODE BEGIN Prototypes */
-void Motor(void);
+void Motor_Enable(void);
 void Motor_Control(int left ,int right);
 /* USER CODE END Prototypes */
 

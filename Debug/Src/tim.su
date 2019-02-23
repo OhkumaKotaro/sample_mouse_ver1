@@ -8,4 +8,4 @@ tim.c:150:6:MX_TIM5_Init	48	static
 tim.c:297:6:HAL_TIM_PWM_MspDeInit	0	static
 tim.c:329:6:HAL_TIM_Base_MspDeInit	0	static
 tim.c:347:6:Motor_Enable	8	static
-tim.c:378:6:Motor_Control	16	static
+tim.c:381:6:Motor_Control	16	static
