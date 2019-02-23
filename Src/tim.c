@@ -374,7 +374,10 @@ void Motor_Enable(void) {
 	HAL_GPIO_WritePin(r_cw_GPIO_Port,r_cw_Pin,GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(l_cw_GPIO_Port,l_cw_Pin,GPIO_PIN_SET);
 }
-
+/*
+ * ŠT—v
+ *
+ * */
 void Motor_Control(int left ,int right){
 	if(left>0){
 		HAL_GPIO_WritePin(l_cw_GPIO_Port,l_cw_Pin,GPIO_PIN_SET);

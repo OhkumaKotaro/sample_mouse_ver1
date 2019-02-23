@@ -116,8 +116,6 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim4);
   setbuf(stdout, NULL);
 
-  //uint16_t adc=0;
-  //uint16_t batt_now=0;
   /* USER CODE END 2 */
 
   /* Infinite loop */
