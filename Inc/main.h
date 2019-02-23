@@ -10,7 +10,7 @@
   * inserted by the user or by software development tools
   * are owned by their respective copyright owners.
   *
-  * COPYRIGHT(c) 2018 STMicroelectronics
+  * COPYRIGHT(c) 2019 STMicroelectronics
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -57,6 +57,12 @@
 #define led3_GPIO_Port GPIOA
 #define led4_Pin GPIO_PIN_1
 #define led4_GPIO_Port GPIOA
+#define motor_en_Pin GPIO_PIN_6
+#define motor_en_GPIO_Port GPIOC
+#define l_cw_Pin GPIO_PIN_7
+#define l_cw_GPIO_Port GPIOC
+#define r_cw_Pin GPIO_PIN_8
+#define r_cw_GPIO_Port GPIOC
 #define sw3_Pin GPIO_PIN_10
 #define sw3_GPIO_Port GPIOC
 #define sw2_Pin GPIO_PIN_11
